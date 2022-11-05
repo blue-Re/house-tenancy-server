@@ -1,0 +1,47 @@
+const { STRING, NUMBER, DATE } = require('sequelize');
+const { sequelize } = require('../db/index');
+
+const House = sequelize.define('houses', {
+  id: {
+    type: NUMBER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  carouselMap: STRING,
+  houseCode: STRING,
+  title: STRING,
+  description: STRING,
+  entire: NUMBER,
+  price_num: NUMBER,
+  room_type_name: STRING,
+  roomTypeID: STRING,
+  community: STRING,
+  communityID: STRING,
+  oriented_name: STRING,
+  orientedID: STRING,
+  floor: STRING,
+  floorID: STRING,
+  time: DATE,
+  priceType: STRING,
+  priceTypeID: STRING,
+  supporting: STRING,
+  supportingID: STRING,
+  coord: STRING,
+  area_name: STRING,
+  areaID: STRING,
+  tags: STRING,
+  tagsID: STRING,
+  line_name: STRING,
+  lineID: STRING,
+  lineNum: STRING,
+  size: NUMBER,
+  userCode: NUMBER,
+  lock: NUMBER,
+  releaseNews: NUMBER,
+  characteristic_name: STRING,
+  characteristicID: STRING,
+  createdAt: DATE,
+  updatedAt: DATE,
+});
+
+module.exports = House;
