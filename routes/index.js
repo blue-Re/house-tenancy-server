@@ -13,7 +13,25 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/getMenuList', async (req, res) => {
-  res.send({ code: 0, menuList: managerMenuList });
+  const { type } = req.query;
+  /*
+    0 : 房东
+    1 : 租户
+    2 ：管理员
+  */
+  switch (Number(type)) {
+    case 0:
+      res.send({ code: 0, menuList: ownerMenuList });
+      return;
+    case 1:
+      res.send({ code: 0, menuList: tenantMenuList });
+      return;
+    case 2:
+      res.send({ code: 0, menuList: managerMenuList });
+      return;
+    default:
+      res.send({ code: 1, msg: '获取菜单列表错误' });
+  }
 });
 
 router.post('/register', async (req, res) => {
@@ -55,7 +73,9 @@ router.post('/login', async (req, res) => {
     && user.password == password
     && user.type == type
   ) {
-    res.send({ code: 0, msg: '登录成功！' });
+    const data = { ...user };
+    Reflect.deleteProperty(data, 'password');
+    res.send({ code: 0, msg: '登录成功！', data });
     return;
   }
   res.send({ code: 1, msg: '用户名或者密码错误' });

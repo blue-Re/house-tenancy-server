@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const houseRouter = require('./routes/house');
 
 const app = express();
 const cors = require('cors');
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', houseRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
