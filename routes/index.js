@@ -15,18 +15,18 @@ router.get('/', async (req, res) => {
 router.get('/getMenuList', async (req, res) => {
   const { type } = req.query;
   /*
-    0 : 房东
-    1 : 租户
-    2 ：管理员
+    1 : 房东
+    2 : 租户
+    3 ：管理员
   */
   switch (Number(type)) {
-    case 0:
+    case 1:
       res.send({ code: 0, menuList: ownerMenuList });
       return;
-    case 1:
+    case 2:
       res.send({ code: 0, menuList: tenantMenuList });
       return;
-    case 2:
+    case 3:
       res.send({ code: 0, menuList: managerMenuList });
       return;
     default:
