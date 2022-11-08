@@ -14,7 +14,62 @@ router.post('/createNews', async (req, res) => {
     content,
     author,
   });
-  res.send({ code: 0, result });
+  if (result.createdAt) {
+    res.send({ code: 0, msg: '创建成功' });
+    return;
+  }
+  res.send({ code: 1, msg: '创建失败' });
+});
+
+router.post('/updateNews', async (req, res) => {
+  const {
+    id, title, content, author, online,
+  } = req.body;
+
+  if (online) {
+    const result = await News.update(
+      {
+        online: 2,
+      },
+      {
+        where: { id },
+      },
+    );
+    if (result[0]) {
+      res.send({ code: 0, msg: '新闻已下线' });
+      return;
+    }
+    res.send({ code: 1, msg: '下线新闻失败' });
+    return;
+  }
+
+  const result = await News.update(
+    {
+      title,
+      content,
+      author,
+    },
+    {
+      where: { id },
+    },
+  );
+  if (result[0]) {
+    res.send({ code: 0, msg: '更新成功' });
+    return;
+  }
+  res.send({ code: 1, msg: '更新新闻失败' });
+});
+
+router.post('/getNewsDetail', async (req, res) => {
+  const { id } = req.body;
+
+  const { title, content, author } = await News.findOne({
+    where: {
+      id: Number(id),
+    },
+  });
+
+  res.send({ code: 0, data: { title, content, author } });
 });
 
 router.post('/getNewsList', async (req, res) => {
@@ -47,6 +102,9 @@ router.post('/getNewsList', async (req, res) => {
     },
     limit: size,
     offset: (page - 1) * size,
+    order: [
+      ['createdAt', 'desc'],
+    ],
   });
   res.send({ code: 0, total, newsList });
 });

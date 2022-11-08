@@ -31,6 +31,9 @@ router.post('/getHouseList', async (req, res) => {
     },
     limit: size,
     offset: (page - 1) * size,
+    order: [
+      ['createdAt', 'desc'],
+    ],
   });
   res.send({ code: 0, total, houseList });
 });

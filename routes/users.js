@@ -33,6 +33,9 @@ router.post('/getUserList', async (req, res) => {
     },
     limit: size,
     offset: (page - 1) * size,
+    order: [
+      ['createdAt', 'desc'],
+    ],
   });
   userList.forEach((user) => {
     Reflect.deleteProperty(user, 'password');

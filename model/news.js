@@ -10,6 +10,10 @@ const News = sequelize.define('news', {
   content: STRING,
   title: STRING,
   author: STRING,
+  online: {
+    type: NUMBER,
+    defaultValue: 1,
+  },
   createdAt: {
     type: DATE,
     allowNull: true,
