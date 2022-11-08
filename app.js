@@ -4,12 +4,13 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const cors = require('cors');
 const indexRouter = require('./routes/index');
 const houseRouter = require('./routes/house');
+const newsRouter = require('./routes/news');
 const userRouter = require('./routes/users');
 
 const app = express();
-const cors = require('cors');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -23,6 +24,7 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/', userRouter);
+app.use('/', newsRouter);
 app.use('/', houseRouter);
 
 // catch 404 and forward to error handler
