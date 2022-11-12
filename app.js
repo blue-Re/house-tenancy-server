@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const houseRouter = require('./routes/house');
 const newsRouter = require('./routes/news');
 const userRouter = require('./routes/users');
+const troubleRouter = require('./routes/troubles');
 
 const app = express();
 // view engine setup
@@ -20,12 +21,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
 
 app.use('/', indexRouter);
 app.use('/', userRouter);
 app.use('/', newsRouter);
 app.use('/', houseRouter);
+app.use('/', troubleRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

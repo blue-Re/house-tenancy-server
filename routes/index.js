@@ -1,10 +1,10 @@
 /* eslint-disable eqeqeq */
 const express = require('express');
 const { ownerMenuList, managerMenuList, tenantMenuList } = require('../config/menu');
+const { getToken } = require('../utils/token');
 
 const router = express.Router();
 
-// const House = require('../model/house');
 const User = require('../model/user');
 
 /* GET home page. */
@@ -59,6 +59,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { username, password, type } = req.body;
+  const token = getToken(username);
 
   const user = await User.findOne({
     where: {
@@ -73,9 +74,12 @@ router.post('/login', async (req, res) => {
     && user.password == password
     && user.type == type
   ) {
-    const data = { ...user };
+    const data = { ...user, token };
     Reflect.deleteProperty(data, 'password');
-    res.send({ code: 0, msg: '登录成功！', data });
+    res.cookie('user', data, { maxAge: 60 * 60 * 24 * 1000 });
+    res.send({
+      code: 0, msg: '登录成功！', data,
+    });
     return;
   }
   res.send({ code: 1, msg: '用户名或者密码错误' });
