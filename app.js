@@ -10,6 +10,7 @@ const houseRouter = require('./routes/house');
 const newsRouter = require('./routes/news');
 const userRouter = require('./routes/users');
 const troubleRouter = require('./routes/troubles');
+const orderRouter = require('./routes/orders');
 
 const app = express();
 // view engine setup
@@ -28,6 +29,7 @@ app.use('/', userRouter);
 app.use('/', newsRouter);
 app.use('/', houseRouter);
 app.use('/', troubleRouter);
+app.use('/', orderRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

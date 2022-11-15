@@ -28,7 +28,7 @@ router.post('/getUserList', async (req, res) => {
     where: {
       ...where,
       username: {
-        [Op.like]: `%${username}%`,
+        [Op.like]: `%${username || ''}%`,
       },
     },
     limit: size,
