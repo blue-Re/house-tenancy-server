@@ -6,6 +6,7 @@ const { getToken } = require('../utils/token');
 const router = express.Router();
 
 const User = require('../model/user');
+const Troubles = require('../model/troubles');
 
 /* GET home page. */
 router.get('/', async (req, res) => {
@@ -83,6 +84,53 @@ router.post('/login', async (req, res) => {
     return;
   }
   res.send({ code: 1, msg: '用户名或者密码错误' });
+});
+
+router.get('/reduceUserData', async (req, res) => {
+  const { count, rows } = await User.findAndCountAll();
+  const owner = [];
+  const tenant = [];
+  const manager = [];
+
+  if (!count) {
+    res.send({ code: 1, msg: '用户量统计数据获取失败！' });
+    return;
+  }
+
+  rows.forEach((item) => {
+    Reflect.deleteProperty(item, 'password');
+
+    switch (item.type) {
+      case 1:
+        owner.push(item);
+        break;
+      case 2:
+        tenant.push(item);
+        break;
+      case 3:
+        manager.push(item);
+        break;
+      default:
+    }
+  });
+
+  const data = [
+    { name: '房东', value: owner.length },
+    { name: '租户', value: tenant.length },
+    { name: '管理员', value: manager.length },
+  ];
+  res.send({ code: 0, data });
+});
+
+router.get('/reduceTroubleData', async (req, res) => {
+  const { count, rows } = await Troubles.findAndCountAll();
+
+  if (!count) {
+    res.send({ code: 1, msg: '故障统计信息为零或系统错误' });
+    return;
+  }
+
+  res.send({ code: 0, rows });
 });
 
 module.exports = router;
