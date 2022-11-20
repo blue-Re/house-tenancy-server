@@ -66,9 +66,15 @@ router.post('/login', async (req, res) => {
     where: {
       username,
       type,
+      password,
     },
     raw: true,
   });
+
+  if (user === null) {
+    res.send({ code: 1, msg: '用户没有找到' });
+    return;
+  }
 
   if (
     user.username == username
