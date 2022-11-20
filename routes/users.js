@@ -43,4 +43,21 @@ router.post('/getUserList', async (req, res) => {
   res.send({ code: 0, total, userList });
 });
 
+router.post('/deleteUser', async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const result = await User.destroy({
+      where: { id },
+    });
+    if (result) {
+      res.send({ code: 0, msg: '操作成功！' });
+      return;
+    }
+    res.send({ code: 1, msg: '操作失败！' });
+  } catch (error) {
+    res.send({ code: 1, msg: error.msg });
+  }
+});
+
 module.exports = router;
