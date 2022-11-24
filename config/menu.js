@@ -4,13 +4,6 @@ const managerMenuList = [
     label: '首页',
     key: '1',
     path: '/home',
-    // child: [
-    //   {
-    //     label: '',
-    //     key: '',
-    //     path: '',
-    //   },
-    // ],
   },
   {
     label: '用户管理',
@@ -148,18 +141,18 @@ const ownerMenuList = [
       },
     ],
   },
-  // {
-  //   label: '订单管理',
-  //   key: '6',
-  //   path: '/order-management',
-  //   child: [
-  //     {
-  //       label: '订单列表',
-  //       key: '6-1',
-  //       path: '/order-management/order-list',
-  //     },
-  //   ],
-  // },
+  {
+    label: '订单管理',
+    key: '6',
+    path: '/order-management',
+    child: [
+      {
+        label: '订单列表',
+        key: '6-1',
+        path: '/order-management/order-list',
+      },
+    ],
+  },
 ];
 // 租户菜单栏
 const tenantMenuList = [
@@ -167,13 +160,6 @@ const tenantMenuList = [
     label: '首页',
     key: '1',
     path: '/home',
-    // child: [
-    //   {
-    //     label: '',
-    //     key: '',
-    //     path: '',
-    //   },
-    // ],
   },
   // {
   //   label: '用户管理',
@@ -221,18 +207,18 @@ const tenantMenuList = [
       },
     ],
   },
-  // {
-  //   label: '故障管理',
-  //   key: '5',
-  //   path: '/trouble-management',
-  //   child: [
-  //     {
-  //       label: '故障列表',
-  //       key: '5-1',
-  //       path: '/trouble-management/trouble-list',
-  //     },
-  //   ],
-  // },
+  {
+    label: '故障管理',
+    key: '5',
+    path: '/trouble-management',
+    child: [
+      {
+        label: '故障列表',
+        key: '5-1',
+        path: '/trouble-management/trouble-list',
+      },
+    ],
+  },
   // {
   //   label: '订单管理',
   //   key: '6',
